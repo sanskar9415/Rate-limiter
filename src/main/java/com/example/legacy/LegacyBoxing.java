@@ -1,0 +1,17 @@
+package com.example.legacy;
+
+/** Wrapper constructors are deprecated for removal since Java 9. */
+public class LegacyBoxing {
+
+    public Integer box(int value) {
+        return new Integer(value);
+    }
+
+    public Boolean parse(String text) {
+        return new Boolean(text);
+    }
+
+    public boolean sameReference(int a, int b) {
+        return new Integer(a) == new Integer(b); // always false
+    }
+}
