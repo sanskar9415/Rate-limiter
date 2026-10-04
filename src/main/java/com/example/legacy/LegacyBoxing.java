@@ -4,14 +4,14 @@ package com.example.legacy;
 public class LegacyBoxing {
 
     public Integer box(int value) {
-        return new Integer(value);
+        return Integer.valueOf(value);
     }
 
     public Boolean parse(String text) {
-        return new Boolean(text);
+        return Boolean.valueOf(text);
     }
 
     public boolean sameReference(int a, int b) {
-        return new Integer(a) == new Integer(b); // always false
+        return Integer.valueOf(a) == Integer.valueOf(b); // always false
     }
 }

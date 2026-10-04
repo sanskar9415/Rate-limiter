@@ -1,18 +1,15 @@
 package com.example.legacy;
 
-import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
-/** Internal sun.misc API: exists on Java 8, REMOVED in Java 9+ (compile error). */
 public class LegacyEncoder {
 
-    public String encode(String text) throws IOException {
-        return new BASE64Encoder().encode(text.getBytes("UTF-8"));
+    public String encode(String text) {
+        return Base64.getEncoder().encodeToString(text.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String decode(String encoded) throws IOException {
-        return new String(new BASE64Decoder().decodeBuffer(encoded), "UTF-8");
+    public String decode(String encoded) {
+        return new String(Base64.getDecoder().decode(encoded), StandardCharsets.UTF_8);
     }
 }
