@@ -22,7 +22,8 @@ class LegacyBoxingTest {
     }
 
     @Test
-    void newWrapperIsAlwaysDifferentReference() {
-        assertFalse(boxing.sameReference(1, 1));
+    void smallValuesAreCachedLargeOnesAreNot() {
+        assertTrue(boxing.sameReference(1, 1));
+        assertFalse(boxing.sameReference(1000, 1000));
     }
 }

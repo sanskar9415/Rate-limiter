@@ -1,14 +1,16 @@
 package com.example.legacy;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.lang.reflect.InaccessibleObjectException;
 
 import org.junit.jupiter.api.Test;
 
 class LegacyReflectionTest {
 
     @Test
-    void readsInternalCharArray() throws Exception {
-        Object value = new LegacyReflection().peekStringInternals("abc");
-        assertArrayEquals("abc".toCharArray(), (char[]) value);
+    void javaSeventeenBlocksAccessToStringInternals() {
+        assertThrows(InaccessibleObjectException.class,
+                () -> new LegacyReflection().peekStringInternals("abc"));
     }
 }

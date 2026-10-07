@@ -18,3 +18,30 @@ Change the package name if yours differs.
 | LegacyDateService     | Date ctor/getYear, Thread.getId deprecated     | java.time, Thread.threadId() (19+)                    |
 
 Tip: compile with -Xlint:deprecation,removal to see every warning.
+
+
+OpenRewrite can fix these automatically (boring, repeated work with one clear answer):
+
+Change the Java version in pom.xml (for example 8 to 17)
+Replace old calls with their new versions, like new Integer(5) becoming Integer.valueOf(5)
+Rename packages across all files (for example javax to jakarta)
+Update library and plugin versions in the build file
+Fix simple code patterns, like old-style loops or string handling
+
+You must do these manually (they need a decision or have no simple replacement):
+
+Removed Java features, like sun.misc.BASE64Encoder. You choose the replacement.
+Hacky code, like reflection into Java's internal classes. It needs to be rewritten or deleted.
+Missing libraries, like JAXB or Nashorn. You decide which one to add, or whether to drop the feature.
+Broken tests. A tool can't know what a test is supposed to prove, so you update the test.
+Code that compiles but behaves differently, like the Integer.valueOf cache. Only your tests and your own review catch this.
+finalize() and other design changes, like switching to AutoCloseable.
+
+Simple rule: if there's one obvious replacement, OpenRewrite does it. If someone has to choose or think, you do it.
+
+Your workflow every time
+
+Run OpenRewrite.
+Read what it changed (git diff).
+Run the tests.
+Fix what's left by hand.
