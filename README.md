@@ -45,3 +45,25 @@ Run OpenRewrite.
 Read what it changed (git diff).
 Run the tests.
 Fix what's left by hand.
+
+
+Step 5 (preview), try this:
+
+./mvnw -U org.openrewrite.maven:rewrite-maven-plugin:dryRunNoFork \
+-Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE \
+-Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava17
+
+Wait for BUILD SUCCESS, then look at the plan:
+
+cat target/rewrite/rewrite.patch
+
+Step 6 (apply), if the preview looks fine:
+
+./mvnw -U org.openrewrite.maven:rewrite-maven-plugin:runNoFork \
+-Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE \
+-Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava17
+
+
+
+
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
